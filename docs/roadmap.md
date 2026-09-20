@@ -24,14 +24,14 @@
 
 ## v0.2.0 — JS フックとライフサイクル
 
-状態: **未着手**  
-計画: [plans/v0.2.0/](./plans/v0.2.0/)
+状態: **進行中**（ブランチ `dev-v0.2.0`）  
+計画: [plans/v0.2.0/](./plans/v0.2.0/) · テスト仕様: [tests/hooks.md](./tests/hooks.md) / [tests/lifecycle.md](./tests/lifecycle.md)
 
 受け入れ（短く）:
 
-- [ ] 複雑な body / headers を JS 側で渡せる（属性 DSL は作らない）
-- [ ] unbind / destroy などライフサイクル API
-- [ ] プレフィックス変更・複数ルート初期化の DX を整える
+- [x] 複雑な body / headers を JS 側で渡せる（属性 DSL は作らない）
+- [x] unbind / destroy などライフサイクル API
+- [x] プレフィックス変更・複数ルート初期化の DX を整える
 
 ---
 
