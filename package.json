@@ -1,6 +1,6 @@
 {
   "name": "@b4moss/existian",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Declarative async existence checks via HTML data-* attributes",
   "type": "module",
   "sideEffects": false,
@@ -24,6 +24,7 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "node ./scripts/build.mjs",
+    "build:doc-site": "node ./scripts/build-doc-site.mjs",
     "test": "vitest run --coverage",
     "ci:local:fallback": "npm ci && npm test && npm run build"
   },
