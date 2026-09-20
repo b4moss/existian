@@ -1,8 +1,3 @@
-export type InitOptions = {
-  prefix?: string;
-  root?: ParentNode;
-};
-
 export type CheckStatus =
   | "idle"
   | "pending"
@@ -28,4 +23,30 @@ export type CheckAttrs = {
   responseProperty: string | null;
   responseValue: string | null;
   responseMatch: ResponseMatchMode | string;
+};
+
+export type BuildRequestContext = {
+  value: string;
+  element: Element;
+  attrs: CheckAttrs;
+  url: string;
+  init: RequestInit;
+};
+
+export type BuildRequestResult = {
+  url?: string;
+  init?: RequestInit;
+};
+
+export type ExistianHandle = {
+  unbind(element: Element): void;
+  destroy(): void;
+  refresh(): void;
+};
+
+export type InitOptions = {
+  prefix?: string;
+  root?: ParentNode;
+  buildRequest?: (ctx: BuildRequestContext) => BuildRequestResult | void;
+  fetch?: typeof fetch;
 };
