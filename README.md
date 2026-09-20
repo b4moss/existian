@@ -116,6 +116,8 @@ No attribute template DSL — complex payloads stay in JS.
 
 Public smoke page: [https://existian.oss.b4m.jp/](https://existian.oss.b4m.jp/)
 
+`/` detects the browser language and redirects to `/ja/` or `/en/` (`ja` only; everything else falls back to `en`). The smoke pages live under those locale paths.
+
 ```bash
 npm run build:doc-site
 # serve doc-site/ (needs vendor/existian.iife.min.js from the build)
