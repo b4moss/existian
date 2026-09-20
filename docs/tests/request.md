@@ -32,6 +32,24 @@
 - request A のあとに B を開始し、B 完了後に A が返っても、A の結果では状態を更新しない
 - JSON でない 2xx ボディは、match 不能として失敗（例: 種別 `http` または専用の parse 失敗）にでき、throw でランナーを壊さない
 
+---
+
+### createCheckRunner（v0.2.0 拡張）
+
+- オプションに `buildRequest?` と `fetchImpl?`（または `fetch?`）を受け取れる
+- fetch 直前に `buildRequest` を呼び、戻りで URL / RequestInit を上書きできる（詳細は [hooks.md](./hooks.md)）
+- unbound 後は結果を採用しない（[lifecycle.md](./lifecycle.md) の unbind と連携）
+
+#### テスト：正常系
+
+- runner 作成時に `buildRequest` を渡すと、`schedule` 後の fetch 引数にフック結果が反映される
+- `fetchImpl` を渡すと、その関数だけが呼ばれる
+
+#### テスト: 異常系
+
+- `buildRequest` が throw しても runner は後続 `schedule` を受け付け、結果は失敗として `onResult` に渡る
+- unbound（または世代無効）後の完了は `onResult` を呼ばない
+
 ----
 
 以上
