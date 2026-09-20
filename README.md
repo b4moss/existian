@@ -13,8 +13,9 @@ npm install @b4moss/existian
 ```ts
 import { init } from "@b4moss/existian";
 
-init();
+const handle = init();
 // init({ prefix: "data-ex", root: document });
+// handle.unbind(el); handle.refresh(); handle.destroy();
 ```
 
 CDN (after build / publish):
@@ -72,10 +73,31 @@ CDN (after build / publish):
 
 Status is written to `data-ex-status`. Errors also set `data-ex-error` (`network` / `http` / `http:<code>` / `timeout`).
 
-### Value transport (v0.1)
+### Value transport (v0.1 defaults)
 
 - `GET` / `DELETE`: query `value=<input>`
 - `POST` / `PUT` / `PATCH`: JSON body `{"value":"<input>"}`
+
+### JS hooks & lifecycle (v0.2)
+
+```ts
+const handle = init({
+  buildRequest: (ctx) => ({
+    init: {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: "Bearer …" },
+      body: JSON.stringify({ username: ctx.value, orgId: 1 }),
+    },
+  }),
+  // fetch: customFetch,
+});
+
+handle.refresh(); // bind newly added [data-ex-check] under root
+handle.unbind(inputEl);
+handle.destroy();
+```
+
+No attribute template DSL — complex payloads stay in JS.
 
 ## Concurrency
 
@@ -88,7 +110,6 @@ Status is written to `data-ex-status`. Errors also set `data-ex-error` (`network
 
 - UI components / message copy / CSS frameworks
 - Attribute template DSL / expression language
-- Complex body/headers builders (planned for later)
 - Full form validation framework
 
 ## Develop
