@@ -1,9 +1,8 @@
 (() => {
-  const TAKEN = new Set(["admin", "root"]);
+  const TAKEN = new Set(["bob", "alice", "admin", "root"]);
 
   const mockBody = {
-    availableExamples: ["Bob", "Alice"],
-    taken: ["admin", "root"],
+    taken: ["Bob", "Alice", "admin", "root"],
     note: "exists=true means the name is already taken; empty value returns HTTP 400 (error)",
   };
 
