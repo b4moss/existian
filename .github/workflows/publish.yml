@@ -1,0 +1,162 @@
+# Publish @b4moss/existian to npm when a GitHub Release is published for v*.
+# Tags should be created from the `release` branch. Auth: secrets.NPM_TOKEN.
+name: Publish
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to publish (e.g. v0.3.0)"
+        required: true
+        type: string
+      force_verify:
+        description: "Force Test+Build even if CI history exists for the tag SHA"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write
+  actions: read
+  checks: read
+
+concurrency:
+  group: publish-${{ github.event.release.tag_name || inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    if: >
+      (github.event_name == 'workflow_dispatch') ||
+      (github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v'))
+    steps:
+      - name: Resolve tag
+        id: meta
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            TAG="$INPUT_TAG"
+          else
+            TAG="$RELEASE_TAG"
+          fi
+          case "$TAG" in
+            v*) ;;
+            *)
+              echo "Unsupported tag: $TAG (expected v*)"
+              exit 1
+              ;;
+          esac
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ steps.meta.outputs.tag }}
+          fetch-depth: 0
+
+      - name: Require tag commit on release ancestry
+        id: ancestry
+        run: |
+          set -euo pipefail
+          git fetch origin release:refs/remotes/origin/release
+          TAG_SHA="$(git rev-parse HEAD)"
+          if ! git merge-base --is-ancestor "$TAG_SHA" origin/release; then
+            echo "Tag commit $TAG_SHA is not an ancestor of origin/release."
+            echo "Create v* tags from the release branch."
+            exit 1
+          fi
+          echo "Tag commit is on release ancestry: $TAG_SHA"
+          echo "sha=$TAG_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Check CI success history for tag SHA
+        id: ci_history
+        uses: actions/github-script@v7
+        env:
+          FORCE_VERIFY: ${{ inputs.force_verify || 'false' }}
+          TAG_SHA: ${{ steps.ancestry.outputs.sha }}
+        with:
+          script: |
+            if (process.env.FORCE_VERIFY === 'true') {
+              core.setOutput('skip_verify', 'false');
+              core.info('force_verify=true — will run Test+Build');
+              return;
+            }
+            const sha = process.env.TAG_SHA;
+            const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head_sha: sha,
+              status: 'completed',
+              per_page: 30,
+            });
+            const ok = (runs.workflow_runs || []).some(
+              (r) => r.name === 'CI' && r.conclusion === 'success'
+            );
+            core.setOutput('skip_verify', ok ? 'true' : 'false');
+            core.info(ok
+              ? `CI success found for ${sha} — skipping Test/Build`
+              : `No CI success for ${sha} — will run Test+Build`);
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Require package.json version matches tag
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+        run: |
+          set -euo pipefail
+          expected="${TAG#v}"
+          actual="$(node -p "require('./package.json').version")"
+          if [ "$actual" != "$expected" ]; then
+            echo "Tag ${TAG} does not match package.json version ${actual}."
+            exit 1
+          fi
+          echo "Tag ${TAG} matches package.json version ${actual}."
+
+      - name: Test
+        if: steps.ci_history.outputs.skip_verify != 'true'
+        run: npm test
+
+      - name: Build
+        if: steps.ci_history.outputs.skip_verify != 'true'
+        run: npm run build
+
+      - name: Ensure dist exists
+        run: |
+          set -euo pipefail
+          if [ ! -d dist ]; then
+            npm run build
+          fi
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${NODE_AUTH_TOKEN:-}" ]; then
+            echo "NPM_TOKEN secret is missing."
+            exit 1
+          fi
+          version="$(node -p "require('./package.json').version")"
+          args=(--access public --provenance)
+          if [[ "$version" == *-* ]]; then
+            args+=(--tag rc)
+            echo "prerelease detected (${version}); using --tag rc"
+          fi
+          npm publish "${args[@]}"

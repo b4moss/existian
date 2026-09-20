@@ -112,16 +112,33 @@ No attribute template DSL — complex payloads stay in JS.
 - Attribute template DSL / expression language
 - Full form validation framework
 
+## Doc site
+
+Public smoke page: [https://existian.oss.b4m.jp/](https://existian.oss.b4m.jp/)
+
+```bash
+npm run build:doc-site
+# serve doc-site/ (needs vendor/existian.iife.min.js from the build)
+```
+
+Deploy: merge/push to the `doc-site` branch (GitHub Pages).
+
 ## Develop
 
 ```bash
 npm install
 npm test
 npm run build
-# open playground/index.html via a static server that can resolve ../dist
+npm run build:doc-site
 ```
 
 Docs: [docs/main.md](./docs/main.md) · [docs/roadmap.md](./docs/roadmap.md)
+
+## Release / npm
+
+- Delivery branch: `release` (charter)
+- Publish: GitHub Release for `v*` whose commit is on `release` ancestry (`.github/workflows/publish.yml`)
+- Requires repository secret `NPM_TOKEN` for the first publish
 
 ## License
 
