@@ -51,11 +51,12 @@ HTTP API そのものを抽象化するライブラリではなく、**DOM イ�
 |------|------|
 | [roadmap.md](./roadmap.md) | SemVer・マイルストーン一覧 |
 | [plans/](./plans/) | 未実装の計画 |
-| [specs/](./specs/) | 現行機能の仕様正本（実装後） |
+| [specs/](./specs/) | 現行機能の仕様正本 |
+| [tests/](./tests/) | テスト仕様（TDD 入力） |
 | [charter/](./charter/) | 開発憲章 |
 | [override-charter.md](./override-charter.md) | 憲章オーバーライド |
 
-引き継ぎメモの詳細はリポジトリ直下の [README.md](../README.md) を参照。利用向け README は v0.1.0 実装に合わせて整備する。
+利用向けの導入はリポジトリ直下の [README.md](../README.md) を参照。
 
 ----
 
