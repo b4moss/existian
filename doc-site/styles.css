@@ -1,0 +1,160 @@
+:root {
+  color-scheme: light;
+  --ink: #14201a;
+  --muted: #5b6b63;
+  --paper: #f3f6f2;
+  --panel: #ffffff;
+  --line: #c9d5cc;
+  --ok: #1f7a3f;
+  --bad: #b42318;
+  --wait: #9a6700;
+  --err: #6941c6;
+  --brand: #0f3d2e;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #d9ebe1 0%, transparent 55%),
+    linear-gradient(180deg, #eef3ef 0%, var(--paper) 40%, #e7eee9 100%);
+}
+
+main {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 3.5rem 1.25rem 4rem;
+}
+
+.brand {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.4rem, 8vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--brand);
+  line-height: 1;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.lead {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+}
+
+.guide {
+  margin: 0 0 1.5rem;
+  padding: 0.9rem 1rem;
+  border: 1px dashed var(--line);
+  background: color-mix(in srgb, var(--panel) 80%, #e4f0e8);
+}
+
+.guide-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.guide ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.guide li + li {
+  margin-top: 0.25rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 0.35rem;
+  background: var(--panel);
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid color-mix(in srgb, var(--brand) 45%, white);
+  outline-offset: 1px;
+}
+
+[data-ex-status="pending"] {
+  outline: 2px solid var(--wait);
+}
+
+[data-ex-status="success"] {
+  outline: 2px solid var(--ok);
+}
+
+[data-ex-status="invalid"] {
+  outline: 2px solid var(--bad);
+}
+
+[data-ex-status="error"] {
+  outline: 2px solid var(--err);
+}
+
+.msg {
+  margin-top: 0.75rem;
+  min-height: 1.5rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.msg[data-ex-status="pending"]::before {
+  content: "checking…";
+}
+
+.msg[data-ex-status="success"]::before {
+  content: "available";
+  color: var(--ok);
+}
+
+.msg[data-ex-status="invalid"]::before {
+  content: "already taken";
+  color: var(--bad);
+}
+
+.msg[data-ex-status="error"]::before {
+  content: "request failed";
+  color: var(--err);
+}
+
+.msg[data-ex-status="error"][data-ex-error="http:400"]::before {
+  content: "empty is not allowed";
+}
+
+.foot {
+  margin-top: 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+code {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.9em;
+}
+
+a {
+  color: var(--brand);
+}
