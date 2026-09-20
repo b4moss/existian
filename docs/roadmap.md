@@ -9,18 +9,16 @@
 
 ## v0.1.0 — MVP（宣言的非同期チェック）
 
-状態: **進行中**（ブランチ `dev-v0.1.0`）  
-計画: [plans/v0.1.0/](./plans/v0.1.0/)
+状態: **完了**（ブランチ `dev-v0.1.0`）  
+仕様: [specs/](./specs/) · テスト仕様: [tests/](./tests/)
 
-受け入れ（短く）:
+受け入れ:
 
-- [ ] npm パッケージとして build / test できる（Vite + TS + Vitest）
-- [ ] `data-ex-*` で入力 → debounce → request → 状態反映が一通り動く
-- [ ] request 排他・stale 無視・timeout がある
-- [ ] response 判定（property / value / match）と state / pending / target が使える
-- [ ] playground でデモでき、利用向け README の最小がある
-
-実装スライス順は [plans/v0.1.0/README.md](./plans/v0.1.0/README.md) を正とする。
+- [x] npm パッケージとして build / test できる（Vite + TS + Vitest）
+- [x] `data-ex-*` で入力 → debounce → request → 状態反映が一通り動く
+- [x] request 排他・stale 無視・timeout がある
+- [x] response 判定（property / value / match）と state / pending / target が使える
+- [x] playground でデモでき、利用向け README の最小がある
 
 ---
 
