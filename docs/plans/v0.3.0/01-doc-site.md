@@ -12,6 +12,7 @@ WWW から existian をスモークできる静的 1 ページを `https://exist
 - `playground/` を廃止し `doc-site/` を新設
 - ネイティブ HTML/CSS/JS。ビルド済み IIFE を読み込む
 - JSON ベタ書きモック API + available 文字列の事前ガイダンス
+- `/en`・`/ja` でロケール分割。ルートは JS でブラウザ言語を判定し切替（`ja` 以外は `en` へフォールバック）
 - `doc-site` ブランチへの push/merge で GitHub Pages デプロイ
 
 ----

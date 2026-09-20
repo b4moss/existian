@@ -1,68 +1,27 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>existian — smoke test</title>
-    <meta
-      name="description"
-      content="Smoke-test @b4moss/existian in the browser with a local JSON mock."
-    />
-    <link rel="stylesheet" href="./styles.css" />
+    <title>existian</title>
+    <meta http-equiv="refresh" content="0;url=./en/" />
+    <script>
+      (() => {
+        const list = navigator.languages?.length
+          ? navigator.languages
+          : [navigator.language || "en"];
+        const preferJa = list.some((l) =>
+          String(l).toLowerCase().startsWith("ja"),
+        );
+        location.replace(preferJa ? "./ja/" : "./en/");
+      })();
+    </script>
   </head>
   <body>
-    <main>
-      <p class="brand">existian</p>
-      <h1>Browser smoke test</h1>
-      <p class="lead">
-        Type a username. existian debounces, calls a mock API, and writes
-        <code>data-ex-status</code> for CSS.
-      </p>
-
-      <aside class="guide" aria-label="Mock guidance">
-        <p class="guide-title">Mock guidance (demo only)</p>
-        <ul>
-          <li>
-            <strong>available</strong>: any non-empty name except the reserved
-            ones below
-          </li>
-          <li>
-            <strong>taken</strong> (invalid):
-            <code>Bob</code>, <code>Alice</code>, <code>admin</code>,
-            <code>root</code>
-          </li>
-          <li>
-            <strong>error</strong>: empty (or whitespace-only) input —
-            neither available nor taken
-          </li>
-        </ul>
-      </aside>
-
-      <label for="username">Username</label>
-      <input
-        id="username"
-        type="text"
-        autocomplete="off"
-        spellcheck="false"
-        data-ex-check="/api/users/exists"
-        data-ex-debounce="300"
-        data-ex-timeout="5000"
-        data-ex-state="username"
-        data-ex-pending="busy"
-        data-ex-response-property="exists"
-        data-ex-response-value="false"
-        data-ex-response-match="exact"
-      />
-      <p class="msg" data-ex-state="username"></p>
-
-      <p class="foot">
-        Package loaded from local build
-        (<code>vendor/existian.iife.min.js</code>). Site:
-        <a href="https://existian.oss.b4m.jp/">existian.oss.b4m.jp</a>
-      </p>
-    </main>
-
-    <script src="./vendor/existian.iife.min.js"></script>
-    <script src="./app.js"></script>
+    <p>
+      <a href="./en/">English</a>
+      ·
+      <a href="./ja/">日本語</a>
+    </p>
   </body>
 </html>
