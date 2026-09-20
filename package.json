@@ -24,6 +24,7 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "node ./scripts/build.mjs",
+    "build:doc-site": "node ./scripts/build-doc-site.mjs",
     "test": "vitest run --coverage",
     "ci:local:fallback": "npm ci && npm test && npm run build"
   },
