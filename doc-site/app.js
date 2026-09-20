@@ -3,7 +3,7 @@
 
   const mockBody = {
     taken: Array.from(TAKEN),
-    note: "exists=true means the name is already taken",
+    note: "exists=true means the name is already taken; empty value returns HTTP 400 (error)",
   };
 
   // Keep guidance in sync with the visible mock list (JSON blob for clarity).
@@ -32,6 +32,13 @@
     if (url.pathname === "/api/users/exists") {
       await new Promise((r) => setTimeout(r, 350));
       const value = (url.searchParams.get("value") ?? "").trim().toLowerCase();
+      // Empty input is neither available nor taken — surface as HTTP error.
+      if (value === "") {
+        return new Response(JSON.stringify({ error: "empty" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
       const exists = TAKEN.has(value);
       return new Response(JSON.stringify({ exists, value }), {
         status: 200,

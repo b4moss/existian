@@ -140,6 +140,10 @@ input:focus {
   color: var(--err);
 }
 
+.msg[data-ex-status="error"][data-ex-error="http:400"]::before {
+  content: "empty is not allowed";
+}
+
 .foot {
   margin-top: 2rem;
   color: var(--muted);
