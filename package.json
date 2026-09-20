@@ -1,6 +1,6 @@
 {
   "name": "@b4moss/existian",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Declarative async existence checks via HTML data-* attributes",
   "type": "module",
   "sideEffects": false,
