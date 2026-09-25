@@ -8,7 +8,7 @@
 
 - 1 要素（または1バインド）あたり1 runner を想定する
 - `schedule(value: string)` でチェックを予約する。実際の fetch は debounce 後に本ロジックへ来る前提でも、runner 単体テストでは `schedule` 直呼びで検証してよい
-- **送信規約（v0.1.0）**
+- **送信規約（既定）**
   - URL は属性の `check`
   - `GET` / `DELETE`: クエリ `value=<入力値>` を付与（既存クエリがあればマージ）
   - `POST` / `PUT` / `PATCH`: body は `{"value":"<入力値>"}`、`Content-Type: application/json`
@@ -34,7 +34,7 @@
 
 ---
 
-### createCheckRunner（v0.2.0 拡張）
+### createCheckRunner（hooks / lifecycle）
 
 - オプションに `buildRequest?` と `fetchImpl?`（または `fetch?`）を受け取れる
 - fetch 直前に `buildRequest` を呼び、戻りで URL / RequestInit を上書きできる（詳細は [hooks.md](./hooks.md)）
@@ -49,6 +49,7 @@
 
 - `buildRequest` が throw しても runner は後続 `schedule` を受け付け、結果は失敗として `onResult` に渡る
 - unbound（または世代無効）後の完了は `onResult` を呼ばない
+
 
 ----
 

@@ -1,8 +1,8 @@
-# lifecycle（v0.2.0）
+# lifecycle
 
 `init` が返す Handle で、購読と内部 runner を解放・再スキャンする。
 
-固定 API 形（計画）:
+公開 API:
 
 ```ts
 type ExistianHandle = {
@@ -14,7 +14,7 @@ type ExistianHandle = {
 init(options?: InitOptions): ExistianHandle;
 ```
 
-- v0.1 の「同一要素は二重 bind しない」は維持
+- 「同一要素は二重 bind しない」は維持する
 - `unbind` は listener 解除・debouncer cancel・当該要素を再 bind 可能にする
 - `destroy` は当該 `init` 呼び出しが bind した要素をすべて `unbind` 相当にする
 - `refresh` は同じ `prefix` / `root` / フック設定で、未 bind の `{prefix}-check` 要素だけ追加 bind する
