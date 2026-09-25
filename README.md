@@ -73,12 +73,12 @@ CDN (after build / publish):
 
 Status is written to `data-ex-status`. Errors also set `data-ex-error` (`network` / `http` / `http:<code>` / `timeout`).
 
-### Value transport (v0.1 defaults)
+### Value transport (defaults)
 
 - `GET` / `DELETE`: query `value=<input>`
 - `POST` / `PUT` / `PATCH`: JSON body `{"value":"<input>"}`
 
-### JS hooks & lifecycle (v0.2)
+### JS hooks & lifecycle
 
 ```ts
 const handle = init({
@@ -138,7 +138,7 @@ Docs: [docs/main.md](./docs/main.md) · [docs/roadmap.md](./docs/roadmap.md)
 
 - Delivery branch: `release` (charter)
 - Publish: GitHub Release for `v*` whose commit is on `release` ancestry (`.github/workflows/publish.yml`)
-- Requires repository secret `NPM_TOKEN` for the first publish
+- Requires repository secret `NPM_TOKEN`
 
 ## License
 

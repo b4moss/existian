@@ -25,7 +25,7 @@
 ## v0.2.0 — JS フックとライフサイクル
 
 状態: **完了**  
-仕様: [specs/hooks.md](./specs/hooks.md) · [specs/lifecycle.md](./specs/lifecycle.md) · テスト仕様: [tests/hooks.md](./tests/hooks.md) / [tests/lifecycle.md](./tests/lifecycle.md)
+仕様: [specs/hooks.md](./specs/hooks.md) · [specs/lifecycle.md](./specs/lifecycle.md) · [specs/init.md](./specs/init.md) · テスト仕様: [tests/hooks.md](./tests/hooks.md) / [tests/lifecycle.md](./tests/lifecycle.md) / [tests/init.md](./tests/init.md)
 
 受け入れ:
 
@@ -37,15 +37,15 @@
 
 ## v0.3.0 — 配布・ドキュメント整備
 
-状態: **進行中**（ブランチ `dev-v0.3.0`）  
-計画: [plans/v0.3.0/](./plans/v0.3.0/)
+状態: **完了**  
+利用向け: [../README.md](../README.md)
 
 受け入れ:
 
 - [x] doc-site（`https://existian.oss.b4m.jp/`）で WWW スモーク可能
 - [x] `doc-site` ブランチ → GitHub Pages デプロイ
 - [x] `release` ブランチ + npm publish ワークフロー
-- [ ] `0.3.0` として npmjs 初回公開（`NPM_TOKEN` 準備後）
+- [x] `0.3.0` として npmjs 初回公開
 
 ---
 

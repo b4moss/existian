@@ -1,8 +1,8 @@
-# hooks（v0.2.0）
+# hooks
 
 属性 DSL を使わず、JS 側で request の URL / init（body・headers 等）を組み立てる。
 
-固定 API 形（計画）:
+公開 API:
 
 ```ts
 type BuildRequestContext = {
@@ -24,7 +24,7 @@ init({
 });
 ```
 
-- フック未指定時は v0.1.0 の送信規約のまま
+- フック未指定時は既定の送信規約のまま
 - `init` 戻り値のマージ: 返した `init` は浅くマージ。`body` / `headers` はフックが返した値を優先（完全指定可）
 - `signal`（AbortController）はランナー側が管理し、フックが消してもランナーが再付与してよい
 
@@ -33,7 +33,7 @@ init({
 ### buildRequest
 
 - `createCheckRunner`（または同等）が fetch 直前に呼び出す
-- 引数 `ctx` には、v0.1 規約で組み立てた `url` / `init` と、入力 `value`・要素・attrs が入る
+- 引数 `ctx` には、既定の送信規約で組み立てた `url` / `init` と、入力 `value`・要素・attrs が入る
 - 戻り値が `void` / `undefined` のときは `ctx.url` / `ctx.init` をそのまま使う
 - `url` のみ返すと URL だけ差し替え、`init` のみなら init だけ差し替え
 - カスタム `fetch` が `init({ fetch })` で渡されていれば、グローバル `fetch` の代わりにそれを使う
