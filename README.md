@@ -61,17 +61,17 @@ CDN (after build / publish):
 |-----------|------|
 | `data-ex-check` | Check URL (required to bind) |
 | `data-ex-method` | HTTP method (default `GET`) |
-| `data-ex-debounce` | Debounce ms |
-| `data-ex-timeout` | Request timeout ms |
+| `data-ex-debounce` | Debounce ms (unset → 0) |
+| `data-ex-timeout` | Request timeout ms (unset / negative → no timeout) |
 | `data-ex-events` | Event names, space-separated (default `input`) |
-| `data-ex-state` | Shared state name for status targets |
-| `data-ex-pending` | Extra pending CSS hook value |
-| `data-ex-target` | CSS selector for an extra status target |
+| `data-ex-state` | Shared state name for status targets (`document`-wide) |
+| `data-ex-pending` | Value written to `data-ex-pending-active` while pending |
+| `data-ex-target` | CSS selector for an extra status target (`querySelector`) |
 | `data-ex-response-property` | JSON property to judge |
 | `data-ex-response-value` | Expected value (`exact` / `regex`) |
 | `data-ex-response-match` | `exact` (default) or `regex` |
 
-Status is written to `data-ex-status`. Errors also set `data-ex-error` (`network` / `http` / `http:<code>` / `timeout`).
+Status is written to `data-ex-status`. Errors also set `data-ex-error` (`network` / `timeout` / `http:<code>`, e.g. `http:500`).
 
 ### Value transport (defaults)
 

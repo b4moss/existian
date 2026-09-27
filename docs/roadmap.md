@@ -18,7 +18,7 @@
 - [x] `data-ex-*` で入力 → debounce → request → 状態反映が一通り動く
 - [x] request 排他・stale 無視・timeout がある
 - [x] response 判定（property / value / match）と state / pending / target が使える
-- [x] playground でデモでき、利用向け README の最小がある
+- [x] doc-site でデモでき、利用向け README の最小がある
 
 ---
 

@@ -9,15 +9,18 @@
 - オプション: `prefix?: string`（既定 `"data-ex"`）、`root?: ParentNode`（既定 `document`）、`buildRequest?`、`fetch?`
 - 戻り値は `ExistianHandle`（`unbind` / `destroy` / `refresh`）。詳細は [lifecycle.md](./lifecycle.md)
 - `root` 配下で `{prefix}-check` 属性を持つ要素を検出し、各要素に対して属性読取とイベント購読を行う
+- bind 直後に当該要素へ `idle` status を書く
 - 購読イベントは `readAttrs` の `events`（既定 `input`）
-- イベント発火時、当該要素の現在値を後段（debounce → check runner）へ渡すパイプラインを接続する
+- イベント発火時、当該要素の現在値（`value` プロパティがあればそれ、なければ `textContent`）を後段（debounce → check runner）へ渡す
+- `debounce` 未設定時の待ちは 0ms
+- 属性は bind 時スナップショット（後からの DOM 属性変更は再 bind まで反映しない）
 - 同一要素を二重に bind しない（再 `init` 時は既存購読を増やさない、または冪等）
 - フック未使用時の宣言的パスと既定送信規約は維持する。フック詳細は [hooks.md](./hooks.md)
 - 複数 `init` はそれぞれ独立した Handle を持つ（同一要素は最初に bind した側が保持し、他方はスキップ）
 
 #### テスト：正常系
 
-- `data-ex-check` 付き input が1つあるとき、`init()` 後に `input` イベントでパイプラインが呼ばれる（値変化がハンドラまで届く）
+- `data-ex-check` 付き input が1つあるとき、`init()` 後に当該要素へ `data-ex-status="idle"` が付き、`input` イベントでパイプラインが呼ばれる（値変化がハンドラまで届く）
 - `prefix: "data-my"` を渡すと `data-my-check` のみ対象になり、`data-ex-check` だけの要素は bind されない
 - `root` に部分木を渡すと、その外の `data-ex-check` 要素は bind されない
 - `init()` の戻り値に `unbind` / `destroy` / `refresh` がある

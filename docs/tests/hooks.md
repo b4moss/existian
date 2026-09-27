@@ -2,13 +2,13 @@
 
 属性 DSL を使わず、JS 側で request の URL / init（body・headers 等）を組み立てる。
 
-公開 API:
+公開 API（パッケージが export する型）:
 
 ```ts
 type BuildRequestContext = {
   value: string;
   element: Element;
-  attrs: CheckAttrs;
+  attrs: /* 読取済みチェック設定 */;
   url: string;
   init: RequestInit;
 };
@@ -27,6 +27,7 @@ init({
 - フック未指定時は既定の送信規約のまま
 - `init` 戻り値のマージ: 返した `init` は浅くマージ。`body` / `headers` はフックが返した値を優先（完全指定可）
 - `signal`（AbortController）はランナー側が管理し、フックが消してもランナーが再付与してよい
+- パッケージ公開面は `init` と `InitOptions` / `BuildRequestContext` / `BuildRequestResult` / `ExistianHandle` 等。`readAttrs` や内部 `CheckAttrs` 型名は export しない
 
 ---
 

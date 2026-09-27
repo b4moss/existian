@@ -16,7 +16,8 @@
 - **stale**: request ごとに世代（識別子）を持ち、完了時に現行世代でなければ結果を採用しない（コールバック／状態更新を行わない）
 - **timeout**: `timeoutMs` 指定時、超過は失敗。`AbortController` 等で中断してよい
 - **エラー種別**: 少なくとも `network` / `http` / `timeout` を区別して完了結果に載せる。HTTP 非2xx は `http`（status code も保持）
-- 成功時は JSON パース結果（または raw）を後段 `matchResponse` に渡せる形で返す
+- 成功時は **JSON パース結果**を後段 `matchResponse` に渡す。2xx でも JSON でないボディは `http` 失敗（status code 保持）とし、raw 文字列は渡さない
+- `timeoutMs` が `null` または負数のときは timeout レースを張らない（無期限）
 
 #### テスト：正常系
 
@@ -30,7 +31,7 @@
 - HTTP 500 等の非2xx のとき、種別 `http` と status code が分かる
 - `timeoutMs` 内に完了しないとき、種別 `timeout` となり、その request の遅い成功応答は採用されない（stale または abort 済み）
 - request A のあとに B を開始し、B 完了後に A が返っても、A の結果では状態を更新しない
-- JSON でない 2xx ボディは、match 不能として失敗（例: 種別 `http` または専用の parse 失敗）にでき、throw でランナーを壊さない
+- JSON でない 2xx ボディは種別 `http`（当該 status code）となり、throw でランナーを壊さない
 
 ---
 

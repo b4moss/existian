@@ -6,6 +6,8 @@
 - POST/PUT/PATCH: JSON `{ value }`
 - in-flight 中は最新 value を1つだけ待機
 - 結果は `network` / `http` / `timeout` を区別
+- 2xx でも JSON でないボディは `http` 失敗（raw は後段へ渡さない）
+- `timeoutMs` 未設定または負数なら timeout なし
 
 詳細は [../tests/request.md](../tests/request.md)。
 
