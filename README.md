@@ -132,7 +132,7 @@ npm run build
 npm run build:doc-site
 ```
 
-Docs: [docs/main.md](./docs/main.md) · [docs/roadmap.md](./docs/roadmap.md)
+Docs: [docs/README.md](./docs/README.md) · [docs/roadmap.md](./docs/roadmap.md) · [docs/index.md](./docs/index.md)
 
 ## Release / npm
 

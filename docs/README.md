@@ -47,6 +47,8 @@ HTTP API そのものを抽象化するライブラリではなく、**DOM イ�
 
 ## 索引
 
+OKF 版索引は [index.md](./index.md)（`okf_version: "0.1"`）。本文の正本は本ファイル（pillar）。
+
 | 文書 | 役割 |
 |------|------|
 | [roadmap.md](./roadmap.md) | SemVer・マイルストーン一覧 |
@@ -54,6 +56,7 @@ HTTP API そのものを抽象化するライブラリではなく、**DOM イ�
 | [specs/](./specs/) | 現行機能の仕様正本 |
 | [tests/](./tests/) | テスト仕様（TDD 入力） |
 | [charter/](./charter/) | 開発憲章 |
+| [charter/okf/](./charter/okf/) | OKF v0.1 定義・執筆サンプル |
 | [override-charter.md](./override-charter.md) | 憲章オーバーライド |
 
 利用向けの導入はリポジトリ直下の [README.md](../README.md) を参照。

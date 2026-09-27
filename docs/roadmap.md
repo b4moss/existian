@@ -1,6 +1,6 @@
 # @b4moss/existian 開発ロードマップ
 
-仕様ハブ: [main.md](./main.md)  
+仕様ハブ: [README.md](./README.md)（pillar）  
 計画詳細: [plans/](./plans/)
 
 状態凡例: `未着手` / `進行中` / `完了`
