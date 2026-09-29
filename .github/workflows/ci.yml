@@ -1,4 +1,4 @@
-# CI — PRs targeting develop or dev-* only.
+# CI — PRs to develop / dev-* / main, and pushes to main (Codecov + badge).
 name: CI
 
 on:
@@ -6,9 +6,13 @@ on:
     branches:
       - develop
       - "dev-*"
+      - main
+  push:
+    branches:
+      - main
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
@@ -37,6 +41,14 @@ jobs:
 
       - name: Test with coverage
         run: npm test
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@0fb7174895f61a3b6b78fc075e0cd60383518dac # v5.5.5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info
+          disable_search: true
+          fail_ci_if_error: false
 
   build:
     name: Build
