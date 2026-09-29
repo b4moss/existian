@@ -4,7 +4,6 @@
 [![npm](https://img.shields.io/npm/v/@b4moss/existian)](https://www.npmjs.com/package/@b4moss/existian)
 [![Release](https://img.shields.io/github/v/release/b4moss/existian)](https://github.com/b4moss/existian/releases)
 [![License](https://img.shields.io/github/license/b4moss/existian)](https://github.com/b4moss/existian/blob/main/LICENSE)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/b4moss/existian/badge)](https://scorecard.dev/viewer/?uri=github.com/b4moss/existian)
 
 Declarative async checks for input values via HTML `data-*` attributes.
 
