@@ -1,5 +1,11 @@
 # @b4moss/existian
 
+[![CI](https://github.com/b4moss/existian/actions/workflows/ci.yml/badge.svg)](https://github.com/b4moss/existian/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@b4moss/existian)](https://www.npmjs.com/package/@b4moss/existian)
+[![Release](https://img.shields.io/github/v/release/b4moss/existian)](https://github.com/b4moss/existian/releases)
+[![License](https://img.shields.io/github/license/b4moss/existian)](https://github.com/b4moss/existian/blob/main/LICENSE)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/b4moss/existian/badge)](https://scorecard.dev/viewer/?uri=github.com/b4moss/existian)
+
 Declarative async checks for input values via HTML `data-*` attributes.
 
 Bind an input, debounce, request an API, and reflect `idle` / `pending` / `success` / `invalid` / `error` onto the DOM. Styling is left to your CSS.
