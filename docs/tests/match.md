@@ -7,7 +7,7 @@ JSON response から property を取り出し、設定に従って success / inv
 ### matchResponse
 
 - 引数: パース済み JSON（object 等）、設定 `{ property?: string; value?: string; match?: "exact" | "regex" }`
-- `property` 未指定のとき: HTTP 成功前提の呼び出しでは判定を成功（`success`）とする（呼び出し側が非2xx を既に error にしている）
+- `property` 未指定のとき、または空文字のとき: HTTP 成功前提の呼び出しでは判定を成功（`success`）とする（呼び出し側が非2xx を既に error にしている）
 - `property` 指定時: そのキーの値を取り出し、`match`（既定 `exact`）と `value` で比較する
   - `exact`: 取り出し値を文字列化した結果と `value` が一致すれば `success`、否则 `invalid`
   - `regex`: 取り出し値の文字列に対し `value` を正規表現として試し、マッチすれば `success`、否则 `invalid`
@@ -19,6 +19,7 @@ JSON response から property を取り出し、設定に従って success / inv
 - body `{ "exists": true }`、`property="exists"`、`value="true"`、`match="exact"` → `success`
 - 同上で `value="false"` → `invalid`
 - `property` 未指定 → `success`
+- `property=""`（空文字）→ `success`
 - `match="regex"`、`property="code"`、body `{ "code": "AB-12" }`、`value="^AB-"` → `success`
 
 #### テスト: 異常系

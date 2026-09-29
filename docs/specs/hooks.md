@@ -6,9 +6,10 @@
 - runner は fetch 直前に `buildRequest` を呼ぶ。戻り `url` / `init` は個別に差し替え可。`void` / `undefined` なら既定のまま
 - 返した `init` は浅くマージ。`body` / `headers` はフック優先（完全指定可）
 - `signal`（AbortController）はランナーが管理し、フックが欠落させても再付与する
-- `buildRequest` の throw は当該チェックを `error` とし、runner は壊れず次の `schedule` を受け付ける
+- `buildRequest` の throw は当該チェックを `error`（`network`）とし、runner は壊れず次の `schedule` を受け付ける
 - 不正な戻り値（`null` / 配列など）は throw せず既定の `url` / `init` にフォールバック
 - `init({ fetch })` でカスタム fetch を渡せる（関数以外は無視）
+- 公開エントリは `init` と関連型。内部ヘルパ（`readAttrs` 等）は export しない
 
 詳細は [../tests/hooks.md](../tests/hooks.md)。
 

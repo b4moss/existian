@@ -38,14 +38,17 @@ HTTP API そのものを抽象化するライブラリではなく、**DOM イ�
 
 ## 技術方針
 
-- パッケージ名: `@b4moss/existian`
+- パッケージ名: `@b4moss/existian`（現行 `0.3.0`）
 - Vite + TypeScript
 - 属性プレフィックス既定: `data-ex-*`（変更可能）
 - UI は持たない。状態を DOM に反映し、見た目は利用側 CSS の責務
 - ブラウザ向け npm パッケージ（ESM / CJS / IIFE）。構成は `@b4moss/jp-local-gov-id` / `@b4moss/cachian` を参考にする
+- 公開 API: `init` と関連型（`InitOptions` / `ExistianHandle` / `BuildRequestContext` 等）。IIFE では `Existian.init`
 - TDD（氷山パターン）。薄い DDD は意識するが、CRUD / Repository は持たない（パッケージ向け例外）
 
 ## 索引
+
+OKF 版索引は [index.md](./index.md)（`okf_version: "0.1"`）。本文の正本は本ファイル（pillar）。
 
 | 文書 | 役割 |
 |------|------|
@@ -54,6 +57,7 @@ HTTP API そのものを抽象化するライブラリではなく、**DOM イ�
 | [specs/](./specs/) | 現行機能の仕様正本 |
 | [tests/](./tests/) | テスト仕様（TDD 入力） |
 | [charter/](./charter/) | 開発憲章 |
+| [charter/okf/](./charter/okf/) | OKF v0.1 定義・執筆サンプル |
 | [override-charter.md](./override-charter.md) | 憲章オーバーライド |
 
 利用向けの導入はリポジトリ直下の [README.md](../README.md) を参照。

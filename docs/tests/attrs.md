@@ -8,9 +8,10 @@
 
 - 第1引数の `Element` から、第2引数の prefix（既定相当 `data-ex`）に基づく属性を読む
 - 返す設定には少なくとも次を含む: `check`（URL）, `method`, `debounceMs`, `timeoutMs`, `events`, `state`, `pending`, `target`, `responseProperty`, `responseValue`, `responseMatch`
-- 欠落時の既定: `method` は `GET`、`events` は `["input"]`、`responseMatch` は `"exact"`。数値系欠落は「未設定」（呼び出し側が既定を補ってよい）
+- 欠落時の既定: `method` は `GET`、`events` は `["input"]`、`responseMatch` は `"exact"`。数値系欠落は `null`（呼び出し側が既定を補う。debounce 未設定は init 側で 0ms）
 - `data-ex-events` は空白区切りで複数イベントに分割する
-- `check` 属性が無い場合は設定として無効（呼び出し側が bind 対象外にする）
+- `check` 属性が無い、または空白のみの場合は `check: null`（呼び出し側が bind 対象外にする）
+- `method` は trim 後に大文字化。空文字・未知値（例: `FOO`）は `GET`
 
 #### テスト：正常系
 
@@ -20,9 +21,9 @@
 
 #### テスト: 異常系
 
-- `data-ex-check` が無い要素では、無効（例: `check` が空または `null`）と分かる結果になる
-- `data-ex-debounce="abc"` や空文字など非数値は、未設定または無効値として扱い、例外で落とさない
-- `data-ex-method` が空文字のときは既定 `GET` にフォールバックする
+- `data-ex-check` が無い、または空白のみの要素では `check: null` になる
+- `data-ex-debounce="abc"` や空文字など非数値は、未設定（`null`）として扱い、例外で落とさない
+- `data-ex-method` が空文字、または未知値のときは既定 `GET` にフォールバックする
 - 未知の `data-ex-response-match` 値は読み取り結果にそのまま載せてもよいが、後段 `matchResponse` が失敗扱いにできるよう文字列として返す（ここで throw しない）
 
 ----
