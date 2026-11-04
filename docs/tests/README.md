@@ -1,6 +1,6 @@
 # テスト仕様書索引
 
-憲章 [tdd.md](../charter/tdd.md) に従う。対応コードは `src/`、現行仕様正本は `docs/specs/`（同ドメイン分割）。
+憲章 [tdd.md](https://github.com/b4moss/charter/blob/v1/docs/charter/tech/tdd.md) に従う。対応コードは `src/`、現行仕様正本は `docs/specs/`（同ドメイン分割）。
 
 | ドメイン | ファイル | 主なロジック |
 |----------|----------|----------------|
