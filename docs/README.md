@@ -56,8 +56,8 @@ OKF 版索引は [index.md](./index.md)（`okf_version: "0.1"`）。本文の正
 | [plans/](./plans/) | 未実装の計画 |
 | [specs/](./specs/) | 現行機能の仕様正本 |
 | [tests/](./tests/) | テスト仕様（TDD 入力） |
-| [charter/](./charter/) | 開発憲章 |
-| [charter/okf/](./charter/okf/) | OKF v0.1 定義・執筆サンプル |
+| [charter/](https://github.com/b4moss/charter/tree/v1/docs/charter) | 開発憲章 |
+| [charter/okf/](https://github.com/b4moss/charter/blob/v1/docs/charter/doc-rule.md) | OKF v0.1 定義・執筆サンプル |
 | [override-charter.md](./override-charter.md) | 憲章オーバーライド |
 
 利用向けの導入はリポジトリ直下の [README.md](../README.md) を参照。
